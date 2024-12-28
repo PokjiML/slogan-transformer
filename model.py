@@ -1,4 +1,6 @@
 import torch
+import torch.nn as nn
+import torch.optim as optim
 import pandas as pd
 import numpy as np
 
@@ -25,8 +27,24 @@ for key, value in dict_to_remove.items():
 
 
 # getting the character set
-
 characters = [char for slogan in slogans for char in slogan]
 characters = sorted((set(characters)))
-print(characters)
-len(characters)
+
+
+# encoding string to integers sequence
+# decoding integers to string sequence
+to_int = {char: idx for idx, char in enumerate(characters)}
+to_str = {idx: char for idx, char in enumerate(characters)}
+
+encode = lambda sentence: [to_int[char] for char in sentence]
+decode = lambda sentence: [to_str[char] for char in sentence]
+
+
+# predict the next character
+example = slogans[0]
+
+for i in range(len(example)):
+    print(f'Input: {example[:i+1]}')
+    print(f'Output: {example[i+1:i+2]}')
+    print()
+
