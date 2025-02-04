@@ -7,8 +7,8 @@ The use of the dataset is provided for educational research only
 Using Pytorch nn.TransformerDecoder for training from scratch text generation transformer model 
 
 ### Goal
-Creating a model that generates slogans to be used by a company using as few parameters as  
-possible showing Transformer architecture can be also implemented at small scale  
+Creating a model that generates slogans using as few parameters as possible showing Transformer  
+architecture can be also implemented at small scale  
 
 ### How to run the model
 By running file train.py the program should generate in the directory file 'slogan_generator.pth'  
