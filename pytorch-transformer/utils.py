@@ -30,6 +30,8 @@ def clean_text(text):
     text = re.sub(r"\s'\s", "'", text)
     # Remove spaces between .
     text = re.sub(r"\s\.", ".", text)
+    # Remove spaces between ,
+    text = re.sub(r"\s,\s", ",", text)
     # Capitalize the first letter
     text = re.sub(r'^\w', lambda m: m.group().upper(), text)
     # Capitalize the letter after .
