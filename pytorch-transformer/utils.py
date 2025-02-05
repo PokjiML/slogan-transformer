@@ -1,5 +1,6 @@
 import torch
 import math
+import re
 
 def positional_encoding(seq_len, embed_dim):
     pe = torch.zeros(seq_len, embed_dim)
@@ -17,3 +18,17 @@ def generate_padding_mask(sequence, pad_token=0):
 def generate_look_ahead_mask(size):
     mask = torch.triu(torch.ones(size, size) * float('-inf'), diagonal=1)
     return mask
+
+def clean_text(text):
+    """Clean generated text"""
+
+    # Remove double spaces
+    text = re.sub(r'\s+', ' ', text)
+    # Remove spaces between '
+    text = re.sub(r"\s'\s", "'", text)
+    # Remove spaces between .
+    text = re.sub(r"\s\.", ".", text)
+    # Capitalize the first letter and the letter after .
+    text = re.sub(r'(^\w)|(\.\s*\w)', lambda m: m.group().upper(), text)
+
+    return text

@@ -2,6 +2,7 @@ import torch
 from torch.functional import F
 from models.transformer import TransformerModel
 from config import *
+from utils import clean_text
 
 
 class SloganGenerator:
@@ -15,7 +16,7 @@ class SloganGenerator:
         self.model.load_state_dict(model_dict)   
         
 
-    def generate_slogan(self, start_sequence, max_length=20):
+    def generate_slogan(self, start_sequence, max_length=20, temperature=0.1):
         self.model.eval() # check if works without to device
         input_sequence = torch.tensor(self.tokenizer.encode(start_sequence), dtype=torch.long).unsqueeze(0)
 
@@ -25,7 +26,11 @@ class SloganGenerator:
             input_tensor = torch.tensor(generated_sequence[:max_length], dtype=torch.long).unsqueeze(0).to(device)
             with torch.no_grad():
                 output = self.model(input_tensor)
-            next_token = torch.argmax(F.softmax(output[0, -1, :], dim=0)).item()
+            # Predict next token
+            logits = output[0, -1, :] / temperature
+            probabilities = F.softmax(logits, dim=0)
+            next_token = torch.multinomial(probabilities, 1).item()
+
             generated_sequence.append(next_token)
             if next_token == 102: # EOS token (for BERT)
                 break
@@ -34,9 +39,10 @@ class SloganGenerator:
                         for idx in generated_sequence])
 
 
-
-generator = SloganGenerator('slogan_generator.pth', tokenizer)
-print(generator.generate_slogan('what'))
-
+# Generate 10 different slogans
+for _ in range(10):
+    generator = SloganGenerator('slogan_generator.pth', tokenizer)
+    gen_seq = generator.generate_slogan('world', temperature=0.4)
+    print(clean_text(gen_seq))
 
 
