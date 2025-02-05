@@ -15,7 +15,7 @@ Running file train.py results in a training loop which fits the model. It then s
 in .pth file (I couldn't include it in the github repository as it was too large).  
 
 File generate.py has the option to download the model state_dict from my google drive for inference.
-By running the file it will generate slogans based on starting token (can be <bos>, ' ' or any string).  
+By running the file it will generate slogans based on starting token (can be any string).  
 
 For testing I've created .ipynb file which contains every other .py file and has the same functionality  
 as the whole program.
