@@ -11,11 +11,14 @@ Creating a model that generates slogans using as few parameters as possible show
 architecture can be also implemented at small scale  
 
 ### How to run the model
-By running file train.py the program should generate in the directory file 'slogan_generator.pth'  
-with saved weights. (I couldn't place pth file in the github directory due too file size)  
+Running file train.py results in a training loop which fits the model. It then saves the model weights  
+in .pth file (I couldn't include it in the github repository as it was too large).  
 
-Model can be tested in generate.py file which will download state_dict of the model and perform  
-next token prediction with output.
+File generate.py has the option to download the model state_dict from my google drive for inference.
+By running the file it will generate slogans based on starting token (can be <bos>, ' ' or any string).  
+
+For testing I've created .ipynb file which contains every other .py file and has the same functionality  
+as the whole program.
 
 ### Dependencies
 The versions of the modules used in the program are in requirements.txt file  
