@@ -22,13 +22,19 @@ def generate_look_ahead_mask(size):
 def clean_text(text):
     """Clean generated text"""
 
+    # Remove space at the beginning
+    text = re.sub(r'^\s+', '', text)
     # Remove double spaces
     text = re.sub(r'\s+', ' ', text)
     # Remove spaces between '
     text = re.sub(r"\s'\s", "'", text)
     # Remove spaces between .
     text = re.sub(r"\s\.", ".", text)
-    # Capitalize the first letter and the letter after .
-    text = re.sub(r'(^\w)|(\.\s*\w)', lambda m: m.group().upper(), text)
+    # Capitalize the first letter
+    text = re.sub(r'^\w', lambda m: m.group().upper(), text)
+    # Capitalize the letter after .
+    text = re.sub(r'\.\s+(\w)', lambda m: m.group().upper(), text)
+    # Merge words with ##
+    text = re.sub(r' ##', '', text)
 
     return text

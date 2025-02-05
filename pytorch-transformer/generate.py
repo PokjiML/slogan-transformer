@@ -42,7 +42,7 @@ class SloganGenerator:
 # Generate 10 different slogans
 for _ in range(10):
     generator = SloganGenerator('slogan_generator.pth', tokenizer)
-    gen_seq = generator.generate_slogan('world', temperature=0.4)
+    gen_seq = generator.generate_slogan('the best', temperature=0.5)
     print(clean_text(gen_seq))
 
 
