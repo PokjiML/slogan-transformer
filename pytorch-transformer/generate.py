@@ -3,7 +3,10 @@ from torch.functional import F
 from models.transformer import TransformerModel
 from config import *
 from utils import clean_text
+from models.get_model import download_model
 
+# Download the model state_dict
+# download_model()              <- Pre-trained model
 
 class SloganGenerator:
     def __init__(self, model_path, tokenizer):
